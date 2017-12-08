@@ -1,6 +1,6 @@
 import React from 'react';
-import Comment from './Comments'
-import Director from './Director'
+import Comment from './Comment';
+import Director from './Director';
 
 
 export default function Movie({
@@ -12,18 +12,37 @@ export default function Movie({
   return (
     <div>
       <span>Title: {title}</span>
-      <span>Year: {yearReleased}</span>
-
-      Director : {
+      <p>Year: {yearReleased}</p>
+      <p>
+      Director: {
         director ? (
-          <Director> {director.firstName} {director.lastName}</Director>
+          <Director>
+            {director.firstName}
+            {director.lastName}
+          </Director>
         ) : ('N/A')
       }
+    </p>
+      <span>
+        <p>
+        Comments: {
+          comments.length ? (
+            comments.map(comment => (
+              <Comment key={comment._id}>
+              {comment.body}
+              </Comment>
+            ))
 
-      {
-       comments ? (comments.map(comment => ( <Comment key={comment._id} > {comment.body} </Comment> )))
-        : ('No Comments')
-      }
+          ) :   ('no comments')
+        }
+      </p>
+      &nbsp;
+        </span>
     </div>
-  );
-};
+  )
+}
+
+
+
+// terry is such a cool dude.
+  // director && <span> Director : {director.firstName} {director.lastName}</span>

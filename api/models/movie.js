@@ -2,6 +2,7 @@ const mongoose = require('./base');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
+
 const commentSchema = Schema({
   body: String
 })
@@ -9,7 +10,6 @@ const commentSchema = Schema({
 const actor = {
   type: ObjectId, ref: 'Person'
 }
-
 
 const movieSchema = Schema({
   title: String,

@@ -4,6 +4,7 @@ const Person = require('../models/person.js')
 const router = express.Router()
 
 
+
 // setting up root routes to render json
 // leaving as root if we wanted to add different routes like tvshows etc
 // from the then promise return the json
@@ -24,6 +25,14 @@ router.post('/', (req,res) => {
     // console.log({movies})
   });
 });
+
+// router.post('/api', (req,res) => {
+//   loadTitle.create(req.body).then((loadTitle) => {
+//     res.status(201).json(loadTitle).end();
+//     // res.json({ movies });
+//     // console.log({movies})
+//   });
+// });
 
 // router.post('/', (req,res) => {
 //   Movie.create({title: "Love Actually", yearReleased: 2003, star: "Hugh Grant"}).then(err,movies => {

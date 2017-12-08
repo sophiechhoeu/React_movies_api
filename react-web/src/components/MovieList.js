@@ -7,7 +7,7 @@ export default function Movielist({ movies }) {
       <h1>Movie List!</h1>
       {
         movies.map(movie => {
-        return <Movie key={movie._id} {...movie} />
+        return <Movie {...movie} key={movie._id} />
         })
       }
     </div>
