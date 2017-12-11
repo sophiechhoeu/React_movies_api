@@ -7,20 +7,29 @@
 //   baseURL:`http://www.omdbapi.com/`
 // });
 
-const express = require('express')
-const bodyParser = require('body-parser')
+const express = require('express');
+const bodyParser = require('body-parser');
+const authMiddleware = require('./middleware/auth');
 
 // create the server
-const server = express()
+const server = express();
+
+// make our server expect json instead of urlencoded
+
+// secret session in express - signed cookies
+server.use(require('cookie-parser')());
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded());
+server.use(require('express-session')({ secret: 'secret', resave: false, saveUninitialized: false}
+));
+server.use(authMiddleware.initialize);
+
 
 // creating the movies router / controller
 const moviesRouter = require('./routes/movies');
-
-// make our server expect json instead of urlencoded
-server.use(bodyParser.json());
-// server.use(bodyParser.urlencoded());
 // Mounting the movies Route
 server.use('/movies', moviesRouter);
+server.use('/auth', require('./routes/auth'));
 
 // function loadTitle(title) {
 //   return api.get(`t=batman`).then((res) => {
@@ -71,10 +80,6 @@ server.use('/movies', moviesRouter);
 //
 //
 //
-// // FIXME- Modify the res.body
-// //       console.log(res.body)
-// //       res.send(movies);
-//        next();
 //    }
 // }
 

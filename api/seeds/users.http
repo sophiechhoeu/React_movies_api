@@ -1,0 +1,29 @@
+### Register
+
+POST http://localhost:7000/auth/register
+Content-Type: application/json
+
+{
+  "email": "john.brown@example.com",
+  "firstName": "John",
+  "lastName": "Brown",
+  "password": "password01"
+}
+
+
+### signin
+
+POST http://localhost:7000/auth/signin
+Content-Type: application/json
+
+{
+  "email": "john.brown@example.com",
+  "password": "password01"
+}
+
+
+### Protected Movies
+
+GET http://localhost:7000/movies
+Content-Type : application/json
+Cookie: %3AusCTaquXsbdERxxjN4o8jDQ2l9I1dKgN.xh%2ByV8GKr5K4KOxhTuL7k1mb80moEJyiQXHWs7LQn70

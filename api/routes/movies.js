@@ -3,13 +3,20 @@ const Movie = require('../models/movie.js')
 const Person = require('../models/person.js')
 const router = express.Router()
 
+const authorize = (req, res, next) => {
+  if (req.user) {
+    next();
+  } else {
+    res.status(403).end();
+  }
+}
 
 
 // setting up root routes to render json
 // leaving as root if we wanted to add different routes like tvshows etc
 // from the then promise return the json
 
-router.get('/', (req,res) => {
+router.get('/', authorize, (req,res) => {
   Movie.find()
   .populate('director')
   .then(movies => res.json( movies ))
@@ -23,7 +30,8 @@ router.post('/', (req,res) => {
     res.status(201).json(movie).end();
     // res.json({ movies });
     // console.log({movies})
-  });
+  })
+    .catch(error => res.json({ error }))
 });
 
 // router.post('/api', (req,res) => {
@@ -50,10 +58,6 @@ router.post('/', (req,res) => {
 //   //*
 // });
 // });
-
-
-
-
 
 // exporting express router
 // node likes this type of export
