@@ -26,4 +26,4 @@ Content-Type: application/json
 
 GET http://localhost:7000/movies
 Content-Type : application/json
-Cookie: %3AusCTaquXsbdERxxjN4o8jDQ2l9I1dKgN.xh%2ByV8GKr5K4KOxhTuL7k1mb80moEJyiQXHWs7LQn70
+Cookie: connect.sid=s%3A_D-lYV7Y0MMykUymcNOv5iJIRybYLXUP.%2BM5H5TDXajHAosvgxaT0%2FLictwCYnDu4fowmuG0DLzg;

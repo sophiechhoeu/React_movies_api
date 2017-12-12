@@ -15,6 +15,8 @@ const authorize = (req, res, next) => {
 // setting up root routes to render json
 // leaving as root if we wanted to add different routes like tvshows etc
 // from the then promise return the json
+// router.get('/', authorize, (req,res) => {
+
 
 router.get('/', authorize, (req,res) => {
   Movie.find()
