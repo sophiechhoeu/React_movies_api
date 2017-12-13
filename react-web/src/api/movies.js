@@ -1,7 +1,13 @@
 export function all() {
-  return fetch('/movies')
-  .then(res => res.json())
-  .catch(error => {console.log(error)})
+  return fetch('/movies', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG4uc21pdGhAZXhhbXBsZS5jb20iLCJpYXQiOjE1MTMxMjkwNDYsImV4cCI6MTUxMzczMzg0Niwic3ViIjoiNWEyZmQwZmJlZGE4OWMyNmQxYmYxYmU2In0.DgMXQgF0PGDLJUNWCKdAxdjZR5K4qLk6wpSxGiOZMo8'
+    },
+  })
+    .then(res => res.json())
+    .catch(error => { console.log(error) })
 }
 
 export function save(movie) {
@@ -13,7 +19,7 @@ export function save(movie) {
     body: JSON.stringify(movie)
   })
   .then(res => res.json())
-  .catch(error => {console.log(error)})
+  .catch(error => { console.log(error) })
 }
 
 
