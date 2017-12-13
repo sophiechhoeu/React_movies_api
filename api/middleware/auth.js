@@ -1,12 +1,14 @@
 const passport = require('passport');
 const JWT = require('jsonwebtoken');
+const PassportJWT = require('passport-jwt');
 const User = require('../models/user');
 
 //taking the entire user model and stuffing it in memory with serializeUser and deserializeUser
+//when the cookie goes out seralize the user, then when it goes out deserialize
 
 passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
 
 // in const user
 // attributes coming in from the wire
@@ -38,6 +40,32 @@ function register(req, res, next) {
     next();
   })
 }
+
+//taking the user ID from the token and abstantiated
+//user id in the payload
+//Authorising Token with Bearer and placing it header
+
+
+passport.use(new PassportJWT.Strategy(
+  {
+    jwtFromRequest: PassportJWT.ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: 'topsecret',
+    algorithm: ['HS256']
+  },
+  (payload, done) => {
+   User.findById(payload.sub)
+    .then((user) => {
+      if (user) {
+        done(null, user)
+      } else {
+        done(null, false)
+      }
+    })
+    .catch((error) => {
+        done(error,false)
+    });
+  }
+));
 
 function signJWTForUser(req, res){
   const user = req.user;
@@ -74,6 +102,6 @@ module.exports = {
   initialize: [ passport.initialize(), passport.session() ],
   register: register,
   signJWTForUser,
-  // verifyJWTForUser,
-  signIn: passport.authenticate('local', { session: true })
+  signIn: passport.authenticate('local', { session: false }),
+  requireJMT: passport.authenticate('jwt', { session: false})
 }

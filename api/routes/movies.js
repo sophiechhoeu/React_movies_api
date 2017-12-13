@@ -2,15 +2,16 @@ const express = require('express');
 const Movie = require('../models/movie.js')
 const Person = require('../models/person.js')
 const router = express.Router()
+const authMiddleware = require('../middleware/auth');
 
-const authorize = (req, res, next) => {
-  next(); return;
-  if (req.user) {
-    next();
-  } else {
-    res.status(403).end();
-  }
-}
+// const authorize = (req, res, next) => {
+//   next(); return;
+//   if (req.user) {
+//     next();
+//   } else {
+//     res.status(403).end();
+//   }
+// }
 
 
 // setting up root routes to render json
@@ -19,7 +20,7 @@ const authorize = (req, res, next) => {
 // router.get('/', authorize, (req,res) => {
 
 
-router.get('/', authorize, (req,res) => {
+router.get('/', authMiddleware.requireJMT, (req,res) => {
   Movie.find()
   .populate('director')
   .then(movies => res.json( movies ))
