@@ -21,7 +21,7 @@ const movieSchema = Schema({
   // crew: [{}]
 });
 
-const Movie = mongoose.model('Movie', movieSchema);
+const Movie = mongoose.models.Movie || mongoose.model('Movie', movieSchema);
 
 // const Movies = [
 //   {

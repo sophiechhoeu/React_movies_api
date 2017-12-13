@@ -15,7 +15,8 @@ router.post('/register',
 
 router.post('/signin',
   authMiddleware.signIn,
-  authMiddleware.signJWTForUser
+  authMiddleware.signJWTForUser,
+  // authMiddleware.verifyJWTForUser
 );
 
 module.exports = router;

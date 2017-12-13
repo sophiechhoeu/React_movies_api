@@ -44,21 +44,36 @@ function signJWTForUser(req, res){
   const token = JWT.sign({
     email: user.email
   },
-  'topsecret',
+    'topsecret',
   {
     algorithm: 'HS256',
     expiresIn: '7 days',
     subject: user._id.toString()
   }
 );
-
-  res.json({ token })
-
+  res.json({ token });
+  next();
 }
+
+// function verifyJWTForUser(req, res){
+//   const user = req.user;
+//   const token = JWT.verify({
+//     email: user.email
+//   },
+//     'topsecret',
+//   {
+//     algorithm: 'HS384',
+//     expiresIn: '7 days',
+//     subject: user._id.toString()
+//   }
+// );
+//   res.json({ token })
+// }
 
 module.exports = {
   initialize: [ passport.initialize(), passport.session() ],
   register: register,
   signJWTForUser,
+  // verifyJWTForUser,
   signIn: passport.authenticate('local', { session: true })
 }
